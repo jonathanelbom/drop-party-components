@@ -1,0 +1,15 @@
+.App {
+  padding-top: 8px;
+  position: relative;
+}
+
+.App > * {
+  margin-bottom: 16px;
+}
+
+.mini-select {
+  width: 50%;
+}
+.mini-select > * {
+  margin-bottom: 16px;
+}

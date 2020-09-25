@@ -1,0 +1,30 @@
+.ImageCarousel {
+    width: 286px;
+    height: 286px;
+    position: relative;
+    margin: 0 auto;
+    background-color: #efefef;
+}
+
+.ImageCarousel__green {
+    background-color: #0f0;
+}
+
+.ImageCarousel__indicators {
+
+}
+
+.ImageCarousel__indicator {
+
+}
+
+.ImageCarousel__indicator__selected {
+    color: #000;
+    width: 30px;
+    height: 1px;
+    /* :not(:last-child) {
+        margin-right: 5
+    } */
+}
+
+.ImageCarousel__indicator__selected {}
