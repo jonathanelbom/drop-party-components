@@ -7,7 +7,7 @@ import styles from '../styles/App.module.css';
 import { useState } from 'react';
 
 const selectOptions = [
-  <option disabled value=''>{'Drop Down label'}</option>,
+  <option disabled value='' key="drop-down-option-default">{'Drop Down label'}</option>,
   ...new Array(4).fill('').map((otion, index) => (
     <option
       key={`drop-down-option-${index}`}

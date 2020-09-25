@@ -1,6 +1,5 @@
 // import PropTypes from 'prop-types';
 import React, {Fragment} from 'react';
-import {styleClass} from '../../utils/utils';
 import styles from './ImageCarousel.module.css';
 // import './ImageCarousel.scss';
 
@@ -9,10 +8,10 @@ function ImageCarousel({
 }) {
     const images = new Array(4).fill('');
     const index = 0;
-    const classNames = styleClass(styles, ['ImageCarousel'], {'ImageCarousel__green': false});
+    // const classNames = styleClass(styles, ['ImageCarousel'], {'ImageCarousel__green': false});
     return (
         <Fragment>
-            <div className={classNames} />
+            {/* <div className={classNames} /> */}
         </Fragment>
         // <Fragment>
         //     <div className={styles.ImageCarousel}/>
