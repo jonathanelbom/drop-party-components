@@ -1,9 +1,12 @@
 .App {
-  padding-top: 8px;
   position: relative;
 }
 
-.App > * {
+.with_padding  {
+  padding: 0 24px;
+}
+
+.with_padding > * {
   margin-bottom: 16px;
 }
 
@@ -12,4 +15,8 @@
 }
 .mini-select > * {
   margin-bottom: 16px;
+}
+
+.App h3 {
+  margin-top: 56px;
 }

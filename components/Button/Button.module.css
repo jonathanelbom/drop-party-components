@@ -10,6 +10,9 @@
     outline: none;
     position: relative;
     border: none;
+    user-select: none;
+    transition: background-color 150ms ease;
+    transition-property: background-color, border, color;
 }
 
 .Button--primary {
@@ -50,16 +53,19 @@
 
 .Button:active {
     box-shadow: none;
+    transition: none;
 }
 
 .Button--primary:active {
     color: #121212;
     background-color: #12E499;
+    transition: none;
 }
 
 .Button--secondary:active {
     color: #ffffff;
     background-color: #2e2e2e;
+    transition: none;
 }
 
 .Button:active::after {
@@ -83,6 +89,8 @@
 }
 
 .Button__label {
+    user-select: none;
+    pointer-events: none;
     display: flex;
     justify-content: center;
 }

@@ -1,28 +1,33 @@
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
+import withState from '../withState/withState';
 import styles from './Select.module.css'
 
-function Select({
+function SelectControlled({
     children,
     className,
     error,
     id,
     onChange,
     value,
+    hasFocus,
+    beenBlurred,
     ...rest
 }) {
-    const handleChange = (e) => {
-        return onChange && onChange(e.target.value);
-    }
+    // const handleChange = (e) => {
+    //     return onChange && onChange(e.target.value);
+    // }
     const selectClasses = classnames(styles.Select, className, {
         [styles['Select--has-value']]: !!value,
         [styles['Select--has-error']]: !!error,
     });
     const select = (
         <select
-            id={id || `select-${Math.random().toString(36).substr(2, 9)}`}
+            id={id}
             value={value}
             className={selectClasses}
-            onChange={handleChange}
+            onChange={onChange}
+            // onChange={handleChange}
             {...rest}
         >
             {children}
@@ -39,4 +44,18 @@ function Select({
     return select;
 }
 
-export default Select;
+SelectControlled.propsTypes = {
+    value: PropTypes.string.isRequired,
+}
+
+SelectControlled.defaultProps = {
+    value: '',
+}
+
+const Select = withState(SelectControlled);
+
+export default SelectControlled;
+export {
+    Select,
+    SelectControlled
+}
