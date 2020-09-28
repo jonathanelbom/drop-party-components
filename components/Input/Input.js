@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import withState from '../withState/withState';
-import styles from './Input.module.css'
+import styles from './Input.module.scss'
 
 function InputControlled({
     value,

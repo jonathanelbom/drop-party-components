@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import styles from './Button.module.css';
+import styles from './Button.module.scss';
 
 function Button({
     href,

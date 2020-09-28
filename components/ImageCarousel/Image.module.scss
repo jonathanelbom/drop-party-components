@@ -1,0 +1,43 @@
+@import '../../styles/variables.scss';
+
+.Image {
+    position: relative;
+    border-radius: $border-radius;
+    background-color: $gray-90;
+    width: calc(100vw - 48px);
+    padding: 0 4px;
+    height: 100%;
+
+    &__image {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-position: center;
+        background-size: cover;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 200ms $transition-ease 50ms;
+
+        &--loaded-or-error {
+            opacity: 1;
+        }
+    }
+
+    &__img-loader {
+        border: 0;
+        clip: rect(1px, 1px, 1px, 1px);
+        clip-path: inset(50%);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+        word-wrap: normal !important;
+    }
+}

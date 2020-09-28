@@ -1,0 +1,105 @@
+@import '../../styles/variables.scss';
+
+.Button {
+    @include font-body;
+    border-radius: $border-radius;
+    font-weight: 800;
+    padding: .625rem 0;
+    display: block;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    border: none;
+    user-select: none;
+    @include component-transisiton;
+    transition-property: background-color, border-color, color, box-shadow;
+
+    &--primary {
+        color: $white;
+        background-color: $black-90;
+        border: solid 2px $black-90;
+
+        &:focus {
+            background-color: $black-90;
+        }
+
+        &:hover {
+            background-color: $black-80;
+            box-shadow: $shadow-hover;
+        }
+
+        &:active {
+            color: $black-0;
+            background-color: $primary-active;
+            border-color: $primary-active;
+            transition: none;
+        }
+
+        &[disabled] {
+            color: $disabled;
+            background-color: $gray-90;
+            border-color: $gray-90;
+            box-shadow: none;
+        }
+    }
+
+    &--secondary {
+        color: $black-80;
+        background-color: $white;
+        border: solid 2px $black-80;
+
+        &:hover {
+            box-shadow: $shadow-hover;
+        }
+
+        &:active {
+            color: #ffffff;
+            background-color: $black-90;
+            transition: none;
+        }
+
+        &[disabled] {
+            color: $disabled;
+            background-color: $gray-70;
+            border-color: $disabled;
+            box-shadow: none;
+        }
+    }
+
+    &:focus::after {
+        content: '';
+        display: block;
+        position: absolute;
+        border-radius: 6px;
+        border: 2px solid $gray-90;
+        top: -6px;
+        right: -6px;
+        bottom: -6px;
+        left: -6px;
+    }
+
+    &:hover::after {
+        content: none;
+    }
+
+    &:active {
+        box-shadow: none;
+        transition: none;
+
+        &::after {
+            border: none;
+        }
+    }
+
+    &[disabled] {
+        cursor: not-allowed;
+    }
+}
+
+.Button__label {
+    user-select: none;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+}

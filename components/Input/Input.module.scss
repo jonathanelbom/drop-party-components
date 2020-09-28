@@ -1,0 +1,111 @@
+@import '../../styles/variables.scss';
+
+.Input {
+    position: relative;
+
+    &[disabled],
+    &[disabled]:hover,
+    &[disabled]:focus,
+    &:disabled,
+    &:disabled:hover,
+    &:disabled:focus,
+    &[aria-disabled=true],
+    &[aria-disabled=true]:hover,
+    &[aria-disabled=true]:focus {
+        @include disabled-input;
+    }
+}
+
+.Input__input {
+    @include font-body;
+    padding: 24px 16px 8px;
+    border-radius: 4px;
+    width: 100%;
+    border: 1px solid $gray-90;
+    box-shadow: none;
+    color: #121212;
+    background-color: $white;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    font-family: $font-family;
+    @include component-transisiton;
+    transition-property: border, box-shadow;
+
+    &--text {
+        padding: 24px 16px 8px;
+    }
+
+    &--tel {
+        padding: 12px 16px;
+        font-weight: 700;
+        text-align: center;
+
+        &::placeholder {
+            font-weight: 400;
+            color: $gray-90;
+        }
+    }
+    
+    &--has-value {
+        border-color: $black-0;
+    }
+
+    &--has-error {
+        border-color: $error;
+    }
+
+
+    &:hover {
+        border-color: $black-0;
+        box-shadow: $shadow-hover-stroke, $shadow-hover;
+    }
+
+    &:focus {
+        border-color: $black-0;
+        box-shadow: $shadow-focus;
+        outline: none;
+    }
+
+    &:focus + .Input__label {
+        @include input-floating-label;
+    }    
+}
+
+.Input__label {
+    position: absolute;
+    color: $black-60;
+    top: 16px;
+    left: 16px;
+    width: calc(100% - 32px);
+    @include component-transisiton;
+    transition-property: color, font-size, line-height, top;
+
+    &--has-value {
+        @include input-floating-label;
+    }
+
+    &--has-error {
+        color: $black-60;
+    }
+}
+
+.Input__error {
+    @include error-msg;
+}
+
+.Input__icon {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    bottom: 16px;
+
+    &--verified {
+        background-image: $icon-verified;
+    }
+
+    &--error {
+        background-image: $icon-error;
+    }
+}

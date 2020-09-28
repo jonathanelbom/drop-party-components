@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types';
 import {Fragment, useState, useRef, useEffect} from 'react';
 import classnames from 'classnames';
-import styles from './ImageCarousel.module.css';
+import styles from './Image.module.scss';
 
 const Image = ({
     alt,

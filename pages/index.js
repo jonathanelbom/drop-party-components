@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import {Button, Select, SelectControlled, Input, InputControlled, ImageCarousel} from '../components';
 import styles from '../styles/App.module.css';
 import { useState } from 'react';
