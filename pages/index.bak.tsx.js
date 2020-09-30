@@ -1,8 +1,26 @@
+import type { ParsedUrlQuery } from 'querystring';
+
+import { NotFound } from 'http-errors';
 import { AsYouType, parsePhoneNumberFromString } from 'libphonenumber-js';
+import { compose } from 'lodash/fp';
+import type { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import React, { useReducer, useState } from 'react';
+import type { FunctionComponent } from 'react';
 import {CSSTransition, SwitchTransition} from 'react-transition-group';
+import { useAsync } from 'react-use';
+
 import { ImageCarousel, Button, BottomSheet, InputControlled } from 'components';
+import type { Drop } from 'models/drops';
+import { useIntent } from 'models/intents/hooks';
+import type { Product } from 'models/products';
+import { withFallback, withHttpError } from 'utils/hocs';
+import type { HttpErrorProps } from 'utils/pages';
+import { propsToStaticProps, returnClientErrors, returnServerErrors, wrapWithServerError } from 'utils/pages';
+import { firestore } from 'vendors/firebase/firestore';
+import { converter } from 'vendors/firebase/firestore/utils';
+import { captureExceptions } from 'vendors/sentry/utils';
 
 import styles from './Registration.module.scss';
 
@@ -35,7 +53,22 @@ const data = {
 	phoneInputPlaceholder: '(555) 555-5555'
 };
 
-const DropSignupPage = () => {
+interface Params extends ParsedUrlQuery {
+	drop: string;
+}
+
+interface Props {
+	drop: Drop;
+	products: Product[];
+}
+
+const DropSignupPage: FunctionComponent<Props> = ({ drop, products }) => {
+	const { isFallback } = useRouter();
+	// const [phoneNumberInput, setPhoneNumberInput] = useState<string>('');
+	// const [phoneNumber, setPhoneNumber] = useState<string>();
+	// const [pageState, setPageState] = useState<string>('register');
+	
+	// store state in reducer
 	const [state, setState] = useReducer((state, newState) => {
 		return {...state, ...newState}
 	}, {
@@ -102,6 +135,10 @@ const DropSignupPage = () => {
 		setState({pageState: 'number'});
 	};
 
+	const { data: intent, set: setIntent } = useIntent(drop, state.phoneNumber);
+
+	const { error, loading } = useAsync(async () => state.phoneNumber && await setIntent({ id: state.phoneNumber, slug: null }), [state.phoneNumber, setIntent]);
+
 	const renderFormPage = () => {
 		if (state.pageState === 'number') {
 			return (
@@ -113,7 +150,7 @@ const DropSignupPage = () => {
 						type="tel"
 						verified={state.isPhoneValid}
 						error={state.isPhoneError}
-						// disabled
+						disabled={Boolean(intent) || loading}
 						value={state.phoneNumberInput}
 						onChange={handlePhoneNumberChange}
 						placeholder={state.phoneFocused ? '' : data.phoneInputPlaceholder}
@@ -134,7 +171,7 @@ const DropSignupPage = () => {
 					type="tel"
 					verified={state.isCodeValid}
 					error={state.isCodeError}
-					// disabled
+					disabled={Boolean(intent) || loading}
 					value={state.codeInput}
 					onChange={handleCodeChange}
 					placeholder={state.codeFocused ? '' : data.codeInputPlaceholder}
@@ -151,7 +188,7 @@ const DropSignupPage = () => {
 		<div className={styles.Registration}>
 			<Head>
 				<title>
-					{'Drop Party - Registration'}
+					{drop.label}
 				</title>
 			</Head>
 			<div className={styles['brand-heading']}>
@@ -199,8 +236,97 @@ const DropSignupPage = () => {
 					</CSSTransition>
 				</SwitchTransition>
 			</BottomSheet>
+			{/* <form
+				onSubmit={(event): void => {
+					event.preventDefault();
+					const parsed = parsePhoneNumberFromString(phoneNumberInput, 'US');
+					if (!parsed || !parsed.isValid()) {
+						return;
+					}
+					setPhoneNumber(parsed.number as string);
+				}}
+			>
+				<input
+					type="tel"
+					disabled={Boolean(intent) || loading}
+					value={phoneNumberInput}
+					onChange={({ target: { value } }): void => setPhoneNumberInput(new AsYouType('US').input(value))}
+				/>
+				<input
+					type="submit"
+					disabled={Boolean(intent) || loading}
+				/>
+			</form> */}
+			{/* <pre>
+				Drop:
+				{' '}
+				{JSON.stringify(drop, null, 4)}
+			</pre>
+			<pre>
+				Intent:
+				{' '}
+				{JSON.stringify(intent, null, 4)}
+			</pre>
+			<pre>
+				Error:
+				{' '}
+				{JSON.stringify(error, null, 4)}
+			</pre>
+			<pre>
+				Products:
+				{' '}
+				{JSON.stringify(products, null, 4)}
+			</pre> */}
 		</div>
 	);
 };
 
-export default DropSignupPage;
+export default compose(
+	withFallback(),
+	withHttpError()
+)(DropSignupPage);
+
+export const getStaticPaths: GetStaticPaths<Params> = async () => ({
+	fallback: true,
+	paths:    (
+		await firestore
+			.collection('drops')
+			.withConverter(converter<Drop>())
+			.get()
+	)
+		.docs
+		.map((doc) => ({ params: { drop: doc.data().slug } })),
+});
+
+export const getStaticProps: GetStaticProps<Props | HttpErrorProps, Params> = compose( // eslint-disable-line @typescript-eslint/no-unsafe-assignment -- FIXME compose causes eslint errors
+	propsToStaticProps<Props | HttpErrorProps>({ revalidate: 1 }),
+	returnServerErrors(),
+	wrapWithServerError(),
+	captureExceptions(),
+	returnClientErrors()
+)(async ({ params }: GetStaticPropsContext<Params>): Promise<Props> => {
+	const { docs } = await firestore
+		.collection('drops')
+		.where('slug', '==', params!.drop)
+		.withConverter(converter<Drop>())
+		.get();
+
+	if (!docs.length) {
+		throw NotFound(`No Drop at ${params!.drop}`);
+	}
+	const drop = docs[0].data();
+
+	return {
+		drop,
+		products: await Promise.all(
+			(drop.products ?? []).map(async ({ id }) => (
+				await firestore
+					.collection('products')
+					.doc(id)
+					.withConverter(converter<Product>())
+					.get()
+			)
+				.data()!)
+		),
+	};
+});

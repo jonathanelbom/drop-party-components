@@ -2,7 +2,7 @@
 import {Fragment, useRef, useReducer, useEffect} from 'react';
 import classnames from 'classnames';
 import Image from './Image';
-import PaginationIndicator from '../PaginationIndicator/PaginationIndicator';
+import PaginationIndicator from 'components/PaginationIndicator/PaginationIndicator';
 import styles from './ImageCarousel.module.scss';
 
 const getUpdatedIndex = (dir, index, length) => {

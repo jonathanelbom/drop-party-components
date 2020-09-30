@@ -1,0 +1,65 @@
+$form-trans-x-offset: 8px;
+
+.BottomSheet-trans {
+    &-enter {
+        .BottomSheet__scrim {
+            opacity: 0;
+        }
+
+        .BottomSheet__content {
+            transform: translateY(100%);
+        }
+    }
+
+    &-enter-active {
+        .BottomSheet__content {
+            transform: translateY(0%);
+        }
+
+        .BottomSheet__scrim {
+            opacity: 1;
+        }
+    }
+
+    &-exit {
+        .BottomSheet__content {
+            transform: translateY(0%);
+        }
+
+        .BottomSheet__scrim {
+            opacity: 1;
+        }
+    }
+
+    &-exit-active {
+        .BottomSheet__content {
+            transform: translateY(100%);
+        }
+
+        .BottomSheet__scrim {
+            opacity: 0;
+        }
+    }
+}
+
+.Registration__form-trans {
+    &-enter {
+        opacity: 0;
+        transform: translatex(-$form-trans-x-offset);
+    }
+
+    &-enter-active {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    &-exit {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    &-exit-active {
+        opacity: 0;
+        transform: translateX($form-trans-x-offset);
+    }
+}

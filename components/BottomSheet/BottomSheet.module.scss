@@ -1,0 +1,33 @@
+@import '../../styles/variables.scss';
+$trans-dur: 250ms;
+
+.BottomSheet {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+}
+
+.BottomSheet__scrim {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity $trans-dur $transition-ease;
+}
+
+.BottomSheet__content {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: $white;
+    border-radius: 0 16px 0 0;
+    box-shadow: 0px -15px 16px rgba(0, 0, 0, 0.1);
+    transition: transform $trans-dur $transition-ease;
+    transition-property: transform, height;
+}

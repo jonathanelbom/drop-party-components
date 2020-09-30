@@ -13,6 +13,7 @@ $blue-90: #140066;
 $error: #B50000;
 $success: #22BF87;
 $primary-active: #12E499;
+$stats: #A1E412;
 $disabled: rgba(61, 61, 61, 0.5);
 
 $border-radius: 4px;
@@ -51,6 +52,18 @@ $icon-error: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 
 $icon-verified: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 0C3.6 0 0 3.6 0 8C0 12.4 3.6 16 8 16C12.4 16 16 12.4 16 8C16 3.6 12.4 0 8 0ZM7 11.4L3.6 8L5 6.6L7 8.6L11 4.6L12.4 6L7 11.4Z' fill='%2322BF87'/%3E%3C/svg%3E%0A");;
 $icon-error-msg: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg clip-path='url(%23clip0)'%3E%3Cpath d='M6 0C4.81331 0 3.65328 0.351894 2.66658 1.01118C1.67989 1.67047 0.910851 2.60754 0.456725 3.7039C0.00259972 4.80026 -0.11622 6.00666 0.115291 7.17054C0.346802 8.33443 0.918247 9.40353 1.75736 10.2426C2.59648 11.0818 3.66557 11.6532 4.82946 11.8847C5.99335 12.1162 7.19975 11.9974 8.2961 11.5433C9.39246 11.0892 10.3295 10.3201 10.9888 9.33342C11.6481 8.34673 12 7.18669 12 6C12 5.21207 11.8448 4.43185 11.5433 3.7039C11.2418 2.97595 10.7998 2.31451 10.2426 1.75736C9.68549 1.20021 9.02406 0.758251 8.2961 0.456723C7.56815 0.155195 6.78793 0 6 0ZM6 11.2001C4.97153 11.2001 3.96615 10.8951 3.11101 10.3237C2.25586 9.7523 1.58936 8.94016 1.19578 7.98997C0.802197 7.03979 0.699218 5.99423 0.899864 4.98552C1.10051 3.97681 1.59577 3.05025 2.32301 2.323C3.05025 1.59576 3.97681 1.10051 4.98552 0.899861C5.99423 0.699216 7.03979 0.802194 7.98998 1.19577C8.94016 1.58935 9.7523 2.25586 10.3237 3.111C10.8951 3.96615 11.2001 4.97153 11.2001 6C11.1985 7.37866 10.6501 8.7004 9.67526 9.67525C8.7004 10.6501 7.37866 11.1985 6 11.2001Z' fill='%23B50000'/%3E%3Cpath d='M5.52002 2.5218H6.47978V3.48157H5.52002V2.5218Z' fill='%23B50000'/%3E%3Cpath d='M5.52002 4.67725H6.47978V9.47819H5.52002V4.67513V4.67725Z' fill='%23B50000'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0'%3E%3Crect width='12' height='12' fill='white'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E%0A");
 
+@mixin bold {
+    font-weight: 700;
+}
+
+@mixin black {
+    font-weight: 800;
+}
+
+@mixin with-gutter {
+    padding: 0 24px;
+}
+
 @mixin input-floating-label {
     @include font-micro;
     top: 8px;
@@ -83,7 +96,7 @@ $icon-error-msg: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='
     padding-left: 16px;
     background-image: $icon-error-msg;
     background-repeat: no-repeat;
-    background-position: left center; // 0 3px;
+    background-position: 0 3px;
 }
 
 @mixin font-micro {
@@ -109,15 +122,49 @@ $icon-error-msg: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='
 @mixin font-h3 {
     font-size: $font-size-h3;
     line-height: $line-height-h3;
+    font-weight: 700;
 }
 
 @mixin font-h2 {
     font-size: $font-size-h2;
     line-height: $line-height-h2;
+    font-weight: 700;
 }
 
 @mixin font-h1 {
     font-size: $font-size-h1;
     line-height: $line-height-h1;
     font-weight: 800;
+}
+
+.h1 {
+    @include font-h1;
+}
+
+.h2 {
+    @include font-h2;
+}
+
+.h3 {
+    @include font-h3;
+}
+
+.h4 {
+    @include font-h4;
+}
+
+.small {
+    @include font-small;
+}
+
+.micro {
+    @include font-micro;
+}
+
+.bold {
+    @include bold;   
+}
+
+.black {
+    @include black;   
 }

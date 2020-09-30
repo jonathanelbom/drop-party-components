@@ -1,0 +1,73 @@
+@import 'styles/variables.scss';
+$trans-dur: 250ms;
+
+.Registration {
+    padding: 13px 0 44px; 
+}
+
+.brand-heading {
+    @include with-gutter;
+    margin-bottom: 26px;
+    display: flex;
+    justify-content: center;
+}
+
+.product-body {
+    @include with-gutter;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-heading {
+    @include font-h3;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 17px;
+}
+
+.product-stats {
+    @include font-body;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $stats;
+    padding: 6px 16px 7px;
+    border-radius: $border-radius;
+    margin-bottom: 24px;
+}
+
+.details-label {
+    @include font-h4;
+    @include bold;
+    margin-bottom: 8px;
+}
+
+.details {
+    margin-bottom: 60px;
+}
+
+.Registration__form-page {
+    padding: 21px 24px 16px;
+    display: flex;
+    flex-direction: column;
+    transition: transform $trans-dur $transition-ease;
+    transition-property: transform, opacity;
+}
+
+.fixed-footer {
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+    background-color: $white;
+    @include with-gutter;
+    padding-top: 2px;
+    padding-bottom: 16px;
+    box-shadow: 0 -8px 26px 8px $white;
+}
+
+.with-gutter {
+    @include with-gutter;
+}

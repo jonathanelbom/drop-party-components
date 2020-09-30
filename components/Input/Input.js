@@ -7,6 +7,7 @@ function InputControlled({
     value,
     onChange,
     error,
+    errorMsg,
     label,
     id,
     onFocus,
@@ -39,7 +40,7 @@ function InputControlled({
     const inputProps = isTel
         ? {
             ...(!hasFocus && {placeholder}),
-            maxLength: 11,
+            // maxLength: 14,
         }
         : {};
     return (
@@ -67,8 +68,8 @@ function InputControlled({
                     {label}
                 </label>
             )}
-            {error && (
-                <span className={styles.Input__error}>{error}</span>
+            {errorMsg && (
+                <span className={styles.Input__error}>{errorMsg}</span>
             )}
         </div>
     );
@@ -83,7 +84,7 @@ InputControlled.propsTypes = {
 InputControlled.defaultProps = {
     value: '',
     type: 'text',
-    placeholder: '+1 555-555-555',
+    // placeholder: '+1 555-555-555',
 }
 
 const Input = withState(InputControlled);
@@ -93,4 +94,4 @@ export default Input;
 export {
     Input,
     InputControlled
-}
+};

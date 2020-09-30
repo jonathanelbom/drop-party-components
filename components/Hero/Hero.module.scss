@@ -1,0 +1,42 @@
+@import '~fontsource-work-sans/index.css';
+
+.hero {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	min-height: 100vh;
+	padding: 40px;
+	background: linear-gradient(to bottom, #d1b1d2, #f1accb);
+
+	.heroImage {
+		width: 100%;
+		max-width: 800px;
+	}
+
+	.heroText,
+	.heroContact {
+		font-family: 'Work Sans', 'Arial', 'Helvetica', sans-serif;
+		font-size: 1.3125em;
+		font-weight: bold;
+		color: #ffffff;
+		text-align: center;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+	}
+
+	.heroContact {
+		padding: 4px 20px;
+		margin-top: 35px;
+		background-color: rgba(0, 0, 0, 0);
+		border: 2px solid #ffffff;
+		border-radius: 5px;
+
+		&:hover,
+		&:active {
+			color: #f1accb;
+			background-color: #ffffff;
+		}
+	}
+}

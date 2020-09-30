@@ -14,19 +14,20 @@
     user-select: none;
     @include component-transisiton;
     transition-property: background-color, border-color, color, box-shadow;
+    margin-bottom: 12px;
 
     &--primary {
         color: $white;
         background-color: $black-90;
         border: solid 2px $black-90;
 
-        &:focus {
-            background-color: $black-90;
-        }
-
         &:hover {
             background-color: $black-80;
             box-shadow: $shadow-hover;
+        }
+
+        &:focus {
+            background-color: $black-90;
         }
 
         &:active {

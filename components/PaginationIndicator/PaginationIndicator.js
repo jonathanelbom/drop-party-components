@@ -1,5 +1,6 @@
 import classnames from 'classnames';
-import styles from './PaginationIndicator.module.css';
+
+import styles from './PaginationIndicator.module.scss';
 
 function PaginationIndicator({maxItems, itemIndex, transitionDuration = 250}) {
     let paginationOffset = 0;
